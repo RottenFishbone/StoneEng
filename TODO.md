@@ -3,9 +3,9 @@
 - [X] Input Hooking 
 - [X] Keyboard input
 - [ ] Mouse input
- - [X] Buttons
- - [X] Scrolling
- - [ ] Position 
+  - [X] Buttons
+  - [X] Scrolling
+  - [ ] Position 
  
 # Graphics
 - [ ] Full featured Text Renderer
