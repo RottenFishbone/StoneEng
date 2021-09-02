@@ -58,6 +58,14 @@ void input_mouse_btn_callback(GLFWwindow *window, int button, int action, int mo
     }
 }
 
+void input_mouse_pos_callback(GLFWwindow *window, double xpos, double ypos){
+    globals.mouse_pos = (fvec2) { .x=xpos, .y=ypos };
+
+    for (size_t i = 0; i < input_hooks.num_hooks[hook_mouse_pos]; ++i){
+        input_hooks.hooks[hook_mouse_pos][i](xpos, ypos);        
+    }
+}
+
 // Assign the callback functions to be used by GLFW during gfx init
 static const struct input_callbacks callbacks = {
     .key = &input_key_callback,

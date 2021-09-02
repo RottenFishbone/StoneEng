@@ -40,7 +40,9 @@ int gfx_init(GLFWwindow **window) {
     const struct input_callbacks *callbacks = input_get_callbacks();
     glfwSetKeyCallback(*window, callbacks->key); 
     glfwSetScrollCallback(*window, callbacks->scroll); 
-
+    glfwSetMouseButtonCallback(*window, callbacks->mouse_btn);
+    glfwSetCursorPosCallback(*window, callbacks->mouse_pos);
+    
     // Load renderers
     // TODO
 

@@ -4,15 +4,16 @@
 #include <string.h>
 #include "../common.h"
 
-#define NUM_HOOKS 3
+#define NUM_HOOKS 4
 enum input_hook {
     hook_mouse_btn,
+    hook_mouse_pos,
     hook_scroll,
     hook_key,
 };
 
 struct input_globals {
-    vec2 mouse_pos;
+    fvec2 mouse_pos;
     int mouse_btns[3];
     int mouse_modifier;
 
@@ -28,6 +29,7 @@ struct input_callbacks {
     void (*key) (GLFWwindow*, int, int, int, int);
     void (*scroll) (GLFWwindow*, double, double);
     void (*mouse_btn) (GLFWwindow*, int, int, int);
+    void (*mouse_pos) (GLFWwindow*, double, double);
 };
 
 /// Return the list of callback pointers, these are intended to initialize

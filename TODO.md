@@ -2,10 +2,7 @@
 - [ ] Input Event integration
 - [X] Input Hooking 
 - [X] Keyboard input
-- [ ] Mouse input
-  - [X] Buttons
-  - [X] Scrolling
-  - [ ] Position 
+- [X] Mouse input
  
 # Graphics
 - [ ] Full featured Text Renderer
