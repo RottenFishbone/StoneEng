@@ -1,20 +1,23 @@
 # Input
 - [ ] Input Event integration
-- [ ] Input Hooking 
-- [ ] Keyboard input
+- [X] Input Hooking 
+- [X] Keyboard input
 - [ ] Mouse input
+ - [X] Buttons
+ - [X] Scrolling
+ - [ ] Position 
  
 # Graphics
 - [ ] Full featured Text Renderer
   - [ ] TFT Rendering
   - [ ] Bitmap fonts
-  - [ ] Basic/Functional
+  - [X] Basic/Functional
 
 - [ ] Full Tilemap Renderer
   - [ ] Bitmasked connections (4 and 8bit)
   - [ ] Animations
   - [ ] Chunk-based / infinite
-  - [ ] Single-Chunk -- functional
+  - [X] Single-Chunk -- functional
 
 - [ ] Full UI Renderer
   - [ ] Widgets / UI types
@@ -42,7 +45,6 @@
 - [ ] Sound system
     - [ ] Music
     - [ ] SFX
-    - [ ] Basic OpenAL integration
     
 # Logic
 - [ ] Collision handling
