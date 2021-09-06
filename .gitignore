@@ -1,5 +1,9 @@
+# vim
+Session.vim
+
 # Prerequisites
 *.d
+
 # Build targets
 build/*
 

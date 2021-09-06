@@ -1,4 +1,5 @@
 #include "../include/stone_eng.h"
+#define ATLAS_PATH "assets/textures/atlas.png"
 
 static fvec2 camera = (fvec2) { 0.0, 0.0 };
 
@@ -33,7 +34,7 @@ Diag_Pop
 
 int main() {
     GLFWwindow *window;
-    gfx_init(&window);
+    gfx_init(&window, "StoneEng -- TEST");
   
     mat4 projection = lalg_ortho(0, RESOLUTION_X, 0, RESOLUTION_Y);
 
@@ -46,7 +47,8 @@ int main() {
     
     // The terrain renderer renders base tiles, such as dirt and water, these
     // are later covered by masking tiles such as corner tiles
-    struct tile_renderer *terrain_renderer = tile_renderer_init(&camera, &projection);
+    struct tile_renderer *terrain_renderer = tile_renderer_init(&camera, &projection, ATLAS_PATH);
+    struct tile_renderer *tr = tile_renderer_init(&camera, &projection, ATLAS_PATH);
     struct text_renderer *text_renderer = text_renderer_init(&projection);
     struct text_block *fps_block = text_renderer_new_block(text_renderer);
     fps_block->anchor_pos = (fvec2) { .x = 10.f, .y = (float) RESOLUTION_Y - 10.f };
@@ -55,9 +57,10 @@ int main() {
     text_renderer_update(text_renderer);
 
 
-    for (size_t i = 0; i < CHUNK_WIDTH; ++i) {
-        tile_renderer_set_tile(terrain_renderer, 2, (vec2){.x=i, .y=0});
+    for (size_t i = 0; i < CHUNK_AREA; ++i) {
+        tile_renderer_set_index(terrain_renderer, 1, i);
     }
+    tile_renderer_set(tr, 3, vec2(CHUNK_WIDTH/2,CHUNK_WIDTH/2));
 
     // Main execution loop
     unsigned frames_this_sec = 0;
@@ -83,6 +86,7 @@ int main() {
         
         glClear(GL_COLOR_BUFFER_BIT);
         tile_renderer_draw(terrain_renderer);
+        tile_renderer_draw(tr);
         text_renderer_draw(text_renderer);
         glfwSwapBuffers(window);
         glfwPollEvents();

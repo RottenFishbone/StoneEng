@@ -2,6 +2,8 @@
 #include "../../../include/stb_image.h"
 
 struct tile_renderer {
+    const char *atlas_path;
+
     fvec2 *camera;
     struct render_tile map[CHUNK_AREA];
     
@@ -20,16 +22,18 @@ void free_tile_renderer(struct tile_renderer *renderer){
     free(renderer);
 }
 
-struct tile_renderer *tile_renderer_init(fvec2 *camera_inst, mat4 *projection){
-    
+struct tile_renderer *tile_renderer_init(fvec2 *camera_inst, 
+                                         mat4 *projection, 
+                                         const char* atlas_path){
     struct tile_renderer *tr = checked_malloc(sizeof(struct tile_renderer));
+    tr->atlas_path = atlas_path;
     tr->camera = camera_inst;
     tr->projection = projection;
     memset(tr->map, 0, sizeof(tr->map));    
 
     for (size_t i = 0; i < CHUNK_AREA; ++i){
         tr->map[i].local_id = i;
-        tr->map[i].type_id = rand()%2;
+        tr->map[i].type_id = 5;
     }
 
     if (!shader_program_from_files(&tr->program_id, SHADER_TILE_VERT, 
@@ -84,8 +88,8 @@ struct tile_renderer *tile_renderer_init(fvec2 *camera_inst, mat4 *projection){
     tr->uniform_locs[0] = glGetUniformLocation(tr->program_id, "mvp"); 
     tr->uniform_locs[1] = glGetUniformLocation(tr->program_id, "tile_size"); 
     tr->uniform_locs[2] = glGetUniformLocation(tr->program_id, "chunk_size");
-    tr->uniform_locs[3] = glGetUniformLocation(tr->program_id, "atlas_size");
-    tr->uniform_locs[4] = glGetUniformLocation(tr->program_id, "atlas_res");
+    tr->uniform_locs[3] = glGetUniformLocation(tr->program_id, "atlas_width");
+    tr->uniform_locs[4] = glGetUniformLocation(tr->program_id, "atlas_tile_w");
 
     // Unbind
     glBindTexture(GL_TEXTURE_2D, 0);
@@ -97,16 +101,22 @@ err:
     return NULL;
 }
 
-Diag_IgnoreUnused
-int tile_renderer_queue_change(struct tile_renderer *r, struct render_tile change){
-    // TODO complete
-    todo();
-    return 0;
-}
-Diag_Pop
 
-void tile_renderer_set_tile(struct tile_renderer *r, uint8_t type_id, vec2 pos){
+void tile_renderer_set(struct tile_renderer *r, uint8_t type_id, vec2 pos){
+    #ifdef DEBUG_WARN
+    // Ensure that the pos provided was within the chunk bounds, overflowing will work
+    // however may be undesirable.
+    if (pos.x > CHUNK_WIDTH || pos.y > CHUNK_WIDTH) {
+        ZF_LOGE(
+            "tile_renderer_set(): Vector overflowed. Consider using tile_renderer_set_index().\n"
+        );
+    }
+    #endif
     size_t index = pos.x + pos.y * CHUNK_WIDTH;
+    tile_renderer_set_index(r, type_id, index);
+}
+
+void tile_renderer_set_index(struct tile_renderer *r, uint8_t type_id, size_t index){
     glUseProgram(r->program_id);
     glBindVertexArray(r->vert_array);
     glBindBuffer(GL_ARRAY_BUFFER, r->buffers[0]);

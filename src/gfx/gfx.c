@@ -4,7 +4,7 @@
 #define STB_IMAGE_IMPLEMENTATION
 #include "../../include/stb_image.h"
 
-int gfx_init(GLFWwindow **window) {
+int gfx_init(GLFWwindow **window, const char *title) {
     glfwInit();
 
     // OpenGL window hints
@@ -15,7 +15,7 @@ int gfx_init(GLFWwindow **window) {
 
     // Create window using default parameters
     *window = glfwCreateWindow(RESOLUTION_X, RESOLUTION_Y, 
-                                "drangus", 
+                                title, 
                                 FULLSCREEN ? glfwGetPrimaryMonitor() : NULL, 
                                 NULL);
     if (!window){

@@ -7,14 +7,20 @@
 # Graphics
 - [ ] Full featured Text Renderer
   - [ ] TFT Rendering
-  - [ ] Bitmap fonts
+  - [X] Bitmap fonts
   - [X] Basic/Functional
 
 - [ ] Full Tilemap Renderer
-  - [ ] Bitmasked connections (4 and 8bit)
-  - [ ] Animations
-  - [ ] Chunk-based / infinite
-  - [X] Single-Chunk -- functional
+  - [ ] Chunks
+    - [ ] Infinite chunks
+    - [ ] Screen culling
+    - [ ] Finite chunks
+  - [ ] Create sprite vs terrain tilemaps
+    - [ ] Sprite animations (sprite)
+    - [ ] Bitmasked connections (terrain)
+  - [X] Single-Chunk
+    - [X] Add 2D atlas support ( Rows currently unsupported )
+    - [X] Fix dynamic atlas sizing
 
 - [ ] Full UI Renderer
   - [ ] Widgets / UI types
@@ -44,6 +50,8 @@
     - [ ] SFX
     
 # Logic
+- [ ] Start AI
+- [ ] Pathfinding
 - [ ] Collision handling
 - [ ] Saving
   - [ ] Serialization
@@ -58,5 +66,4 @@
 
 # Extra
 - [ ] Integrate falling sand renderer from "Game of Sand" project
-- [ ] Modding API
  
