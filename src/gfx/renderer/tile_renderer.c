@@ -92,7 +92,7 @@ struct tile_renderer *tile_renderer_init(fvec2 *camera_inst,
 
 
     // Get uniform locations from GPU
-    tr->uniform_locs[0] = glGetUniformLocation(tr->program_id, "mvp"); 
+    tr->uniform_locs[0] = glGetUniformLocation(tr->program_id, "view_projection"); 
     tr->uniform_locs[1] = glGetUniformLocation(tr->program_id, "tile_size"); 
     tr->uniform_locs[2] = glGetUniformLocation(tr->program_id, "chunk_size");
     tr->uniform_locs[3] = glGetUniformLocation(tr->program_id, "atlas_width");
