@@ -1,7 +1,7 @@
 #version 460 core
 layout (location = 0) in uint tile_id;
 layout (location = 1) in uint data;
-uniform mat4 mvp;
+uniform mat4 view_projection;
 uniform int tile_size;
 uniform int chunk_size;
 uniform int atlas_width;

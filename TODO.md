@@ -7,7 +7,7 @@
 # Graphics
 - [ ] Full featured Text Renderer
   - [ ] TFT Rendering
-  - [X] Bitmap fonts
+  - [ ] Bitmap fonts
   - [X] Basic/Functional
 
 - [ ] Full Tilemap Renderer
@@ -36,7 +36,7 @@
 
 - [ ] Sprite Renderer
   - [ ] Animations
-
+  - [X] Sprite data / functions
 - [ ] Particle System/Renderer
 
 # Events
@@ -64,6 +64,4 @@
 # Networking
 - [ ] dunnolol
 
-# Extra
-- [ ] Integrate falling sand renderer from "Game of Sand" project
  

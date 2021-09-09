@@ -1,7 +1,9 @@
 #include "../../../include/gfx/renderer/text_renderer.h"
 #include "../../../include/stb_image.h"
 
-#define TEXT_DATA_GLOBALSPACE 0x1
+// TODO refactor this garbage.
+
+#define TEXT_DATA_SCREENSPACE 0x1
 /// Used to package data for an OpenGL array buffer.
 struct text_data {
     fvec2 position;   //  8b

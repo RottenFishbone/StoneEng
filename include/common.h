@@ -13,8 +13,8 @@
 
 #define DEBUG_WARN
 
-#define RESOLUTION_X 800    
-#define RESOLUTION_Y 600
+#define RESOLUTION_X 800.f    
+#define RESOLUTION_Y 600.f
 #define FULLSCREEN 0
 
 #define CHUNK_WIDTH 16
@@ -47,36 +47,58 @@ void todo();
 
 // Vector Types
 // --------------
+// Short vectors (Maybe remove?)
 #define short_vec2(a,b) ((short_vec2){.x=a,.y=b})
 typedef struct {
     int16_t x;
     int16_t y;
 } short_vec2;
-
 #define ushort_vec2(a,b) ((ushort_vec2){.x=a,.y=b})
 typedef struct {
     uint16_t x;
     uint16_t y;
 } ushort_vec2;
 
+// Integer vectors
 #define vec2(a,b) ((vec2){.x=a,.y=b})
 typedef struct {
     int32_t x;
     int32_t y;
 } vec2;
+#define vec3(a,b,c) ((vec3){.x=a,.y=b,.z=c})
+typedef struct {
+    int32_t x;
+    int32_t y;
+    int32_t z;
+} vec3;
+#define vec4(a,b,c,d) ((vec4){.x=a,.y=b,.z=c,.w=d})
+typedef struct {
+    int32_t x;
+    int32_t y;
+    int32_t z;
+    int32_t w;
+} vec4;
 
+// Float vectors
 #define fvec2(a,b) ((fvec2){.x=a,.y=b})
 typedef struct {
     float x;
     float y;
 } fvec2;
 
-#define fvec3(a,b) ((fvec3){.x=a,.y=b})//
+#define fvec3(a,b,c) ((fvec3){.x=a,.y=b,.z=c})//
 typedef struct {
     float x;
     float y;
     float z;
 } fvec3;
+#define fvec4(a,b,c,d) ((fvec4){.x=a,.y=b,.z=c,.w=d})//
+typedef struct {
+    float x;
+    float y;
+    float z;
+    float w;
+} fvec4;
 // ----------------
 
 
@@ -96,7 +118,8 @@ static const mat4 IDENTITY_MATRIX = {
 };
 
 mat4 lalg_cross(mat4 *m1, mat4 *m2);
-mat4 lalg_ortho(int left, int right, int bottom, int top);
+mat4 lalg_ortho(float left, float right, float bottom, float top);
+void lalg_ortho_into(float left, float right, float bottom, float top, mat4 *);
 mat4 lalg_translation(float x, float y, float z);
 void lalg_print(mat4*);
 // -------------

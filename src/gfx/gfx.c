@@ -33,6 +33,11 @@ int gfx_init(GLFWwindow **window, const char *title) {
     // Set OpenGL vars
     glEnable(GL_BLEND); // Enable transparency
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+    
+    glEnable(GL_DEPTH_TEST);
+    glClearDepth(1.0);
+    glDepthFunc(GL_LEQUAL);
+
     glClearColor(0.2, 0.2, 0.2, 1.0);            // Clear to grey
     glViewport(0,0, RESOLUTION_X, RESOLUTION_Y); // Init viewport scale 
 

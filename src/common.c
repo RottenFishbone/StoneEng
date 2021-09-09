@@ -33,7 +33,7 @@ mat4 lalg_cross(mat4 *m1, mat4 *m2){
     return m;
 }
 
-mat4 lalg_ortho(int left, int right, int bottom, int top){
+mat4 lalg_ortho(float left, float right, float bottom, float top){
     mat4 matrix;
 
     memset(matrix.m, 0, sizeof(matrix.m));
@@ -52,6 +52,17 @@ mat4 lalg_ortho(int left, int right, int bottom, int top){
     // C D E F
 
     return matrix;
+}
+void lalg_ortho_into(float left, float right, float bottom, float top, mat4 *matrix){
+    memset(matrix->m, 0, sizeof(matrix->m));
+
+    matrix->m[0x0] = 2.0/(right-left);
+    matrix->m[0x5] = 2.0/(top-bottom);
+    matrix->m[0xA] =  1.0;
+
+    matrix->m[0xC] = -1.0;
+    matrix->m[0xD] = -1.0;
+    matrix->m[0xF] =  1.0;
 }
 
 mat4 lalg_translation(float x, float y, float z){

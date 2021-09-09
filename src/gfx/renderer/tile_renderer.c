@@ -3,6 +3,8 @@
 
 struct tile_renderer {
     const char *atlas_path;
+    int atlas_width;
+    int tile_width;
 
     fvec2 *camera;
     struct render_tile map[CHUNK_AREA];
@@ -24,11 +26,15 @@ void free_tile_renderer(struct tile_renderer *renderer){
 
 struct tile_renderer *tile_renderer_init(fvec2 *camera_inst, 
                                          mat4 *projection, 
-                                         const char* atlas_path){
+                                         const char* atlas_path,
+                                         int tile_width){
+
     struct tile_renderer *tr = checked_malloc(sizeof(struct tile_renderer));
     tr->atlas_path = atlas_path;
     tr->camera = camera_inst;
     tr->projection = projection;
+    tr->tile_width = tile_width;
+
     memset(tr->map, 0, sizeof(tr->map));    
 
     for (size_t i = 0; i < CHUNK_AREA; ++i){
@@ -62,9 +68,10 @@ struct tile_renderer *tile_renderer_init(fvec2 *camera_inst,
     // Loading texture atlas into memory
     int w,h,channels;
     stbi_set_flip_vertically_on_load(1);
-    unsigned char *data = stbi_load(ATLAS_IMAGE_PATH, &w, &h, &channels, STBI_rgb_alpha);
+    unsigned char *data = stbi_load(tr->atlas_path, &w, &h, &channels, STBI_rgb_alpha);
+    tr->atlas_width = w;
     if (!data) {
-        ZF_LOGE("Failed to load atlas file: %s\n", ATLAS_IMAGE_PATH);
+        ZF_LOGE("Failed to load atlas file: %s\n", tr->atlas_path);
         goto err;
     }
     // Load atlas into GPU texture buffer
@@ -143,10 +150,10 @@ void tile_renderer_draw(struct tile_renderer *r) {
     // Load view-projection matrix into kernel 
     glUniformMatrix4fv(r->uniform_locs[0], 1, GL_FALSE, vp.m);
 
-    glUniform1i(r->uniform_locs[1], 32);
+    glUniform1i(r->uniform_locs[1], r->tile_width);
     glUniform1i(r->uniform_locs[2], CHUNK_WIDTH);
-    glUniform1i(r->uniform_locs[3], 256);
-    glUniform1i(r->uniform_locs[4], 32);
+    glUniform1i(r->uniform_locs[3], r->atlas_width);
+    glUniform1i(r->uniform_locs[4], r->tile_width);
 
     glDrawArrays(GL_POINTS, 0, CHUNK_AREA);
 

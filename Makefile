@@ -12,8 +12,7 @@ DEPS := $(OBJS:.o=.d)
 INC_DIRS := $(shell find $(SRC_DIRS) -type d)
 INC_FLAGS := $(addprefix -I,$(INC_DIRS))
 
-CFLAGS = -Wall -pg -Wextra -pedantic -O3 
-CPPFLAGS ?= $(INC_FLAGS) -MMD -MP
+CFLAGS = -std=gnu17 -Wall -pg -Wextra -pedantic -O3 
 
 LDFLAGS = -lglfw -lGL -lX11 -lpthread -lXrandr -lXi -lm -ldl
 

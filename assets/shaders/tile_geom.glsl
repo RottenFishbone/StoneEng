@@ -2,10 +2,10 @@
 layout (points) in;
 layout (triangle_strip, max_vertices = 4) out;
 
-uniform int tile_size;      // Pixel width of rendered tile
-uniform mat4 mvp;           // Model-view-projection matrix
-uniform int atlas_width;    // Total pixel width of atlas texture
-uniform int atlas_tile_w;   // Pixel width of atlas tiles
+uniform int tile_size;          // Pixel width of rendered tile
+uniform mat4 view_projection;   // View-projection matrix
+uniform int atlas_width;        // Total pixel width of atlas texture
+uniform int atlas_tile_w;       // Pixel width of atlas tiles
 
 // Output data from this shader (to the frag shader)
 out GS_OUT {

@@ -5,7 +5,6 @@
 #define SHADER_TILE_VERT "assets/shaders/tile_vert.glsl"
 #define SHADER_TILE_FRAG "assets/shaders/tile_frag.glsl"
 #define SHADER_TILE_GEOM "assets/shaders/tile_geom.glsl"
-#define ATLAS_IMAGE_PATH "assets/textures/atlas.png"
 
 struct render_tile {
     uint32_t local_id;  // Id of tile within the chunk
@@ -18,7 +17,8 @@ struct render_tile {
 // void set_atlas(..){}
 struct tile_renderer *tile_renderer_init(fvec2 *camera_inst, 
                                          mat4 *projection,
-                                         const char *atlas_path);
+                                         const char *atlas_path,
+                                         int tile_width);
 void free_tile_renderer(struct tile_renderer *renderer);
 void tile_renderer_draw(struct tile_renderer *r);
 
