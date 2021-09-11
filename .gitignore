@@ -3,6 +3,7 @@ Session.vim
 
 # bear
 .cache
+compile_commands.json
 
 # Prerequisites
 *.d
