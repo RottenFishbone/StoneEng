@@ -1,6 +1,9 @@
 # vim
 Session.vim
 
+# bear
+.cache
+
 # Prerequisites
 *.d
 

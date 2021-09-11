@@ -2,7 +2,7 @@
 StoneEng is a 2D engine designed primarily to create top-down games using OpenGL rendering.
 The intent for StoneEng is to be lightweight in overhead as well as dependencies.
 
-The engine will be completely coded in C with the end goal to have an exposed API that cap be used in other languages, such as python through C bindings.
+The engine will be completely coded in C with the end goal to have an exposed API that can be used in other languages, such as python through C bindings.
 The main reason for its creation is primarily to improve C knowledge, however there are several final game ideas in mind and as such design decisions are centered around that.
 
 ### Third-Party libs

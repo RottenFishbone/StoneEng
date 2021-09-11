@@ -44,7 +44,7 @@ struct tile_renderer *tile_renderer_init(fvec2 *camera_inst,
 
     if (!shader_program_from_files(&tr->program_id, SHADER_TILE_VERT, 
                                    SHADER_TILE_FRAG,SHADER_TILE_GEOM)){
-        ZF_LOGE("Failed to link tile renderer program.\n");
+        ZF_LOGE("[tile_renderer] Failed to link OpenGL program.\n");
         goto err;
     }
     

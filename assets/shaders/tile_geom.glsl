@@ -60,7 +60,9 @@ void main() {
     vec2 atlas_offset = vec2(  float( tile_type[0] % row_w), 
                               -float( tile_type[0] / row_w));
     for (int i = 0; i < 4; ++i) {
-        gl_Position = view_projection * (gl_in[0].gl_Position * tile_scale + quad_verts[i] * (tile_size/2));
+        vec4 point_pos = gl_in[0].gl_Position * tile_scale;
+        vec4 point_offset = quad_verts[i] * tile_size / 2;
+        gl_Position = view_projection * (point_pos + point_offset);
         gs_out.v_TexCoord = unit_uv_verts[i] + (atlas_offset * atlas_ratio);
         EmitVertex();
     }
