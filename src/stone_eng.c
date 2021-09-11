@@ -65,23 +65,28 @@ int main() {
     
     // The terrain renderer renders base tiles, such as dirt and water, these
     // are later covered by masking tiles such as corner tiles
-    struct tile_renderer *terrain_renderer = tile_renderer_init(&camera, cam_projection, 
-                                                                ATLAS_PATH, ATLAS_TILE_SIZE);
-    struct tile_renderer *tile_renderer = tile_renderer_init(&camera, cam_projection, 
-                                                             ATLAS_PATH, ATLAS_TILE_SIZE);
+    struct tile_renderer *terrain_r = tile_renderer_init(&camera, cam_projection, 
+                                                         ATLAS_PATH, ATLAS_TILE_SIZE);
+    struct tile_renderer *tile_r = tile_renderer_init(&camera, cam_projection, 
+                                                      ATLAS_PATH, ATLAS_TILE_SIZE);
+    struct sprite_renderer *sprite_r = sprite_renderer_init(&camera, cam_projection,
+                                                            ATLAS_PATH, ATLAS_TILE_SIZE);
 
     struct text_renderer *text_renderer = text_renderer_init(&scr_projection);
     struct text_block *fps_block = text_renderer_new_block(text_renderer);
     fps_block->anchor_pos = (fvec2) { .x = 10.f, .y = (float) RESOLUTION_Y - 10.f };
     fps_block->font_size = 1.f;
 
+    struct sprite *s = sprite_renderer_gen(sprite_r);
+    sprite_build_multi(s, fvec3(5.0, 10.0, 0.0), fvec3(1.0, 1.0, 1.0), 0.0, 0, 0, 2, 2);
+
     text_renderer_update(text_renderer);
 
 
     for (size_t i = 0; i < CHUNK_AREA; ++i) {
-        tile_renderer_set_index(terrain_renderer, 1, i);
+        tile_renderer_set_index(terrain_r, 1, i);
     }
-
+    glPointSize(50.f);
     // Main execution loop
     unsigned frames_this_sec = 0;
     double time_since_report = glfwGetTime();
@@ -106,10 +111,12 @@ int main() {
         }
         
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
-        tile_renderer_set_index(tile_renderer, rand() % 3, rand() % CHUNK_AREA);
-        tile_renderer_draw(terrain_renderer);
-        tile_renderer_draw(tile_renderer);
+        tile_renderer_set_index(tile_r, rand() % 3, rand() % CHUNK_AREA);
+        tile_renderer_draw(terrain_r);
+        tile_renderer_draw(tile_r);
+        sprite_renderer_draw(sprite_r);
         text_renderer_draw(text_renderer);
+
         glfwSwapBuffers(window);
         glfwPollEvents();
     }
@@ -117,9 +124,9 @@ int main() {
     free(cam_projection);
 
     free_text_renderer(text_renderer);
-    free_tile_renderer(terrain_renderer);
-    free_tile_renderer(tile_renderer);
-
+    free_tile_renderer(terrain_r);
+    free_tile_renderer(tile_r);
+    free_sprite_renderer(sprite_r);
     gfx_terminate(&window);
     return 0;
 }

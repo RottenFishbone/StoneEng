@@ -29,11 +29,29 @@ layout (location = 3) in uint sprite_data;
 //          0 is the idle state.
 //  frame - The current frame of the animation, from left = 0 to right = total
 //  
-layout (location = 4) in uint anim_data
+layout (location = 4) in uint anim_data;
 
 uniform mat4 view_projection;
-uniform int tile_size;
+uniform int sheet_width;
+uniform int sheet_tile_w;
+
+out uint sprite_id;
+out vec2 sprite_dims;
+out uint anim_id;
+out uint anim_frame;
 
 void main() {
+    // Unpack sprite data
+    sprite_id   = sprite_data & 0xFF;
+    sprite_dims = vec2(float((sprite_data >> 24) & 0xF) + 1.0,
+                       float((sprite_data >> 28) & 0xF) + 1.0);
     
+    // Unpack animation data
+    anim_id    =  anim_data & 0xF;
+    anim_frame = (anim_data >> 8) & 0xF;
+    
+    // Forward position to geometry shader
+    gl_Position = vec4(position, 1.0);
+    
+    // TODO rotation
 }
